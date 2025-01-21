@@ -1,7 +1,13 @@
 ﻿
+using AutoMapper;
+
 namespace BulutSistem.Appllication.Mapping
 {
-    internal class MappingProfile
+    internal class MappingProfile:Profile
     {
+        public MappingProfile()
+        {
+            // gerekli mappleme
+        }
     }
 }

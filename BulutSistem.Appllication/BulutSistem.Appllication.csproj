@@ -29,7 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
+    <Folder Include="Features\Auth\Login\" />
+    <Folder Include="Features\Auth\Registter\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -31,4 +31,8 @@
     <ProjectReference Include="..\BulutSistem.Domain\BulutSistem.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>

@@ -7,13 +7,13 @@ namespace BulutSistem.Domain.Models
     public sealed class Category:BaseEntity
     {
         [MaxLength(255)]
-        public string Name {  get; set; }
-        public string? Description { get; set; }
-        public bool IsSubCategory { get; set; }
+        public string Name { get; set; } = default!;
+        public string? Description { get; set; } = default!;
+        public bool IsSubCategory { get; set; }=default!;
         [ForeignKey("ParentId")]
         [ParentIdRequiredIfSubCategory] // Ekstra validation yazdık.alt kategori ekleneceke parent id belirt
-        public int? ParentId { get; set; }
-        public Category ParentCategory { get; set; }
+        public int? ParentId { get; set; } = default!;
+        public Category ParentCategory { get; set; } = default!;
 
     }
 }

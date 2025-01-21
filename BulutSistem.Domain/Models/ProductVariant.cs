@@ -8,7 +8,7 @@ namespace BulutSistem.Domain.Models;
 public sealed class ProductVariant:BaseEntity
 {
     // tamam burdan devam edilecek dll gormuyordu
-    [ForeignKey("Product")]
+    [ForeignKey("ProductId")]
     public Product Product { get; set; } = default!;
     [Required]
     [StringLength(255, ErrorMessage = "Variant adı en fazla 255 karakter olabilir.")]

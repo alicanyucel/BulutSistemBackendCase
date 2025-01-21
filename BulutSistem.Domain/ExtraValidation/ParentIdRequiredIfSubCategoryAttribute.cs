@@ -11,7 +11,7 @@ public sealed class ParentIdRequiredIfSubCategoryAttribute : ValidationAttribute
         var category = validationContext.ObjectInstance as Category;
         if (category != null)
         {
-            if (category.IsSubCategory && !category.ParentId.HasValue)
+            if (category.IsSubCategory && !category.ParentCategoryId.HasValue)
             {
                 return new ValidationResult("Alt kategori ekleniyorsa, parent_id belirtilmelidir.");
             }

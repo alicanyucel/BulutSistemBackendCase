@@ -14,7 +14,7 @@ namespace BulutSistem.Domain.Models
         public decimal Price { get; set; } = default!;
         [Range(0, int.MaxValue, ErrorMessage = "Stok miktarı geçersiz.")]
         public int Stock_Quantity { get; set; } = default!;
-        [ForeignKey("Category")]
+        [ForeignKey("CategoryId")]
         public Category Category { get; set; } = default!;
         public virtual ICollection<ProductVariant> ProductVariants { get; set; } = default!; // n to n ilişki
         public bool IsDeleted { get; set; } = default!;  // Soft delete için 

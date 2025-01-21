@@ -1,6 +1,9 @@
+using BulutSistem.Infrastructure.DataContext;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +14,7 @@ builder.Services.AddCors(opt =>
         builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
     });
 });
+builder.Services.AddDbContext<ApplicationDbContext>(b => b.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddAuthentication().AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new()
@@ -58,7 +62,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("v1/swagger.json", "MyAPI V1");
+    });
 }
 
 app.UseHttpsRedirection();

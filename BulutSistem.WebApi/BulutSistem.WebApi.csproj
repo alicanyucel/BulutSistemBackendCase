@@ -41,6 +41,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BulutSistem.Domain\BulutSistem.Domain.csproj" />
+    <ProjectReference Include="..\BulutSistem.Infrastructure\BulutSistem.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

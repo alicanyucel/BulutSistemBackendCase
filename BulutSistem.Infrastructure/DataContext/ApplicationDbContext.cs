@@ -3,14 +3,15 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using GenericRepository;
+using System.Reflection.Emit;
 
 
 namespace BulutSistem.Infrastructure.DataContext;
 
-internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>, IUnitOfWork
+public sealed class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>, IUnitOfWork
 {
     public ApplicationDbContext(DbContextOptions options) : base(options) { }
-   
+
 
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
@@ -25,5 +26,11 @@ internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, Identity
         builder.Ignore<IdentityUserToken<Guid>>();
         builder.Ignore<IdentityUserRole<Guid>>();
         builder.Ignore<IdentityUserClaim<Guid>>();
+        builder.Entity<Category>()
+           .HasOne(c => c.ParentCategory)
+           .WithMany(c => c.SubCategories)
+           .HasForeignKey(c => c.ParentCategoryId)
+           .OnDelete(DeleteBehavior.Restrict);
+
     }
 }

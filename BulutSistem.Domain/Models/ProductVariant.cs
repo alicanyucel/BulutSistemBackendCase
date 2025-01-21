@@ -7,6 +7,7 @@ namespace BulutSistem.Domain.Models;
 
 public sealed class ProductVariant:BaseEntity
 {
+    // tamam burdan devam edilecek dll gormuyordu
     [ForeignKey("Product")]
     public Product Product { get; set; } = default!;
     [Required]

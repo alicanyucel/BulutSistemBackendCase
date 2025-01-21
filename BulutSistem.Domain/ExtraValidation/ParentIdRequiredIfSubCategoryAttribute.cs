@@ -2,21 +2,20 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace BulutSistem.Appllication.Features
+namespace BulutSistem.Appllication.Features;
+
+public sealed class ParentIdRequiredIfSubCategoryAttribute : ValidationAttribute
 {
-    public class ParentIdRequiredIfSubCategoryAttribute : ValidationAttribute
+    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        var category = validationContext.ObjectInstance as Category;
+        if (category != null)
         {
-            var category = validationContext.ObjectInstance as Category;
-            if (category != null)
+            if (category.IsSubCategory && !category.ParentId.HasValue)
             {
-                if (category.IsSubCategory && !category.ParentId.HasValue)
-                {
-                    return new ValidationResult("Alt kategori ekleniyorsa, parent_id belirtilmelidir.");
-                }
+                return new ValidationResult("Alt kategori ekleniyorsa, parent_id belirtilmelidir.");
             }
-            return ValidationResult.Success;
         }
+        return ValidationResult.Success;
     }
 }

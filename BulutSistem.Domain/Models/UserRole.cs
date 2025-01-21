@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BulutSistem.Domain.Models
 {
-    internal class AppUserRole
+    public sealed class UserRole
     {
     }
 }

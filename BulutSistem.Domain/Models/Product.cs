@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BulutSistem.Domain.Models
 {
-    public sealed class Product : BaseEntity
+    public class Product : BaseEntity
     {
         [MaxLength(255)]
         public string Name { get; set; }
@@ -16,5 +16,6 @@ namespace BulutSistem.Domain.Models
         public int Stock_Quantity {get;set;}
         [ForeignKey("Category")]
         public Category Category { get; set; }
+        public  virtual ICollection<ProductVariant> ProductVariants { get; set; } // n to n ilişki
     }
 }

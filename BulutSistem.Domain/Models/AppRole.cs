@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace BulutSistem.Domain.Models
+
+namespace BulutSistem.Domain.Models;
+
+public sealed class AppRole : IdentityRole<Guid>
 {
-    internal class AppRole
-    {
-    }
 }

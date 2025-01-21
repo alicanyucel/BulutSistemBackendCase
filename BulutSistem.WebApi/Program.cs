@@ -7,7 +7,14 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+// cors on yüz istekleri için
+builder.Services.AddCors(opt =>
+{
+    opt.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -18,9 +25,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCookiePolicy();
+app.UseStaticFiles();
+app.UseCors();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

@@ -9,7 +9,7 @@ namespace BulutSistem.Domain.Models
         [MaxLength(255)]
         public string Name { get; set; }
         public string? Description { get; set; }
-        [Range(0.01, 99999999.99, ErrorMessage = "Fiyat 0.01 ile 99999999.99 arasında olmalıdır.")]
+        [Range(0.01, 99999999.99, ErrorMessage = "Fiyat 0.01 ile 99999999.99 arasında olmalıdır.Fiyat sıfırdan küçük olamaz")]
         [RegularExpression(@"^\d{1,8}(\.\d{1,2})?$", ErrorMessage = "Fiyat formatı geçersiz. Lütfen 10 haneli (2 ondalıklı) formatta girin.")]
         public decimal Price { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "Stok miktarı geçersiz.")]

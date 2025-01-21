@@ -35,12 +35,4 @@
     <PackageReference Include="xunit" Version="2.9.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EditorConfigFiles Remove="C:\Users\Ali Can\source\repos\BulutSistem\BulutSistem.Domain\Models\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="C:\Users\Ali Can\source\repos\BulutSistem\BulutSistem.Domain\Models\.editorconfig" />
-  </ItemGroup>
-
 </Project>

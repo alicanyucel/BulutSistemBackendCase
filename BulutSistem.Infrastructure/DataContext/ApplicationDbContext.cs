@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using GenericRepository;
 
 
 namespace BulutSistem.Infrastructure.DataContext;
@@ -14,6 +15,7 @@ internal sealed class ApplicationDbContext : IdentityDbContext<AppUser, Identity
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<ProductVariant> ProductVariants { get; set; }
+    public DbSet<Variant> Variants { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // istenmeyen tablolar identity

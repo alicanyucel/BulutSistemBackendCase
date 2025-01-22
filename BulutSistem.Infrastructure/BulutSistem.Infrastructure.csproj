@@ -45,4 +45,12 @@
     <ProjectReference Include="..\BulutSistem.Domain\BulutSistem.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Ali Can\Source\Repos\BulutSistemBackendCase\BulutSistem.Infrastructure\Services\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Ali Can\Source\Repos\BulutSistemBackendCase\BulutSistem.Infrastructure\Services\.editorconfig" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,7 @@
 using BulutSistem.Appllication;
+using BulutSistem.Appllication.Services;
 using BulutSistem.Infrastructure;
+using BulutSistem.Infrastructure.Services;
 using BulutSistem.WebApi.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -26,10 +28,13 @@ public class Program
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:SecretKey").Value ?? ""))
             };
         });
-        //redis
-        var redisConnection = builder.Configuration.GetValue<string>("RedisConnection");
-        //redis
-        builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnection));
+        // Redis baðlantýsý ekleniyor
+       // builder.Services.AddSingleton<IRedisService, RedisService>();
+        builder.Services.AddSingleton<RedisCacheService>();
+        builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost:6379,abortConnect=false"));
+
+
+
         builder.Services.AddAuthorizationBuilder();
         Log.Logger = new LoggerConfiguration()
        .WriteTo.MSSqlServer(

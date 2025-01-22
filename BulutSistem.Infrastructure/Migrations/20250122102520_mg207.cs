@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BulutSistem.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class mg99 : Migration
+    public partial class mg207 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

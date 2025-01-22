@@ -5,7 +5,7 @@
 namespace BulutSistem.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class mg97 : Migration
+    public partial class mg203 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

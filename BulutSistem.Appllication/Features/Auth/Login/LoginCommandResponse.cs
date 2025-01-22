@@ -3,5 +3,6 @@
 namespace BulutSistem.Appllication.Features.Auth.Login;
 
 public sealed record LoginCommandResponse(
-string AccessToken,
-Guid UserId);
+      string Token,
+      string RefreshToken,
+      DateTime RefreshTokenExpires);

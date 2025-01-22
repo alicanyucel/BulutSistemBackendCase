@@ -1,7 +1,8 @@
-﻿using BulutSistem.Domain.Abstraction;
+﻿using BulutSistem.Appllication.Features.Auth.Login;
+using BulutSistem.Appllication.Services;
 using BulutSistem.Domain.Models;
 using BulutSistem.Domain.Options;
-using BulutSistem.Infrastructure.DataContext;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,37 +11,46 @@ using System.Text;
 
 namespace BulutSistem.Infrastructure.Services
 {
-    internal sealed class JwtProvider : IJwtProvider
+    internal class JwtProvider(
+         UserManager<AppUser> userManager,
+         IOptions<JwtOptions> jwtOptions) : IJwtProvider
     {
-        private readonly ApplicationDbContext _context;
-        private readonly Jwt _jwt;
-        public JwtProvider(ApplicationDbContext context, IOptions<Jwt> jwt)
+        public async Task<LoginCommandResponse> CreateToken(AppUser user)
         {
-            _context = context;
-            _jwt = jwt.Value;
-        }
-
-        public async Task<string> CreateTokenAsync(AppUser user)
-        {
-            Claim[] claims = new Claim[]
+            List<Claim> claims = new()
             {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim("NameLastname", string.Join(" ",user.FirstName,user.LastName)),
-            new Claim("Email", user.Email)
+                new Claim("Id", user.Id.ToString()),
+                new Claim("Name", user.FullName),
+                new Claim("Email", user.Email ?? ""),
+                new Claim("UserName", user.UserName ?? "")
             };
 
-            JwtSecurityToken securityToken = new(
-                issuer: _jwt.Issuer,
-                audience: _jwt.Audience,
+            DateTime expires = DateTime.UtcNow.AddMonths(1);
+
+
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Value.SecretKey));
+
+            JwtSecurityToken jwtSecurityToken = new(
+                issuer: jwtOptions.Value.Issuer,
+                audience: jwtOptions.Value.Audience,
                 claims: claims,
-                notBefore: DateTime.Now,
-                expires: DateTime.Now.AddSeconds(10),
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.SecretKey)), SecurityAlgorithms.HmacSha512));
+                notBefore: DateTime.UtcNow,
+                expires: expires,
+                signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512));
 
             JwtSecurityTokenHandler handler = new();
-            string token = handler.WriteToken(securityToken);
 
-            return token;
+            string token = handler.WriteToken(jwtSecurityToken);
+
+            string refreshToken = Guid.NewGuid().ToString();
+            DateTime refreshTokenExpires = expires.AddHours(1);
+
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpires = refreshTokenExpires;
+
+            await userManager.UpdateAsync(user);
+
+            return new(token, refreshToken, refreshTokenExpires);
         }
     }
 }

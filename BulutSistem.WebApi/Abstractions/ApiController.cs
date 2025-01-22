@@ -7,10 +7,10 @@ namespace BulutSistem.WebApi.Abstractions
     [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = "Bearer")]
-    public class BaseApiController : ControllerBase
+    public class ApiController : ControllerBase
     {
         public readonly IMediator _mediator;
-        protected BaseApiController(IMediator mediator)
+        protected ApiController(IMediator mediator)
         {
             _mediator = mediator;
         }

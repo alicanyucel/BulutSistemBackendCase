@@ -1,8 +1,8 @@
 ﻿using MediatR;
-
+using TS.Result;
 
 namespace BulutSistem.Appllication.Features.Auth.Login;
 
 public sealed record LoginCommand(
-string UserNameOrEmail,
-string Password) : IRequest<LoginCommandResponse>;
+    string EmailOrUserName,
+    string Password) : IRequest<Result<LoginCommandResponse>>;

@@ -1,40 +1,56 @@
-﻿using BulutSistem.Domain.Abstraction;
+﻿using BulutSistem.Appllication.Services;
 using BulutSistem.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TS.Result;
+
 
 namespace BulutSistem.Appllication.Features.Auth.Login
 {
-    internal sealed class LoginCommandHandler : IRequestHandler<LoginCommand, LoginCommandResponse>
+    public sealed  class LoginCommandHandler(
+      UserManager<AppUser> userManager,
+      SignInManager<AppUser> signInManager,
+      IJwtProvider jwtProvider) : IRequestHandler<LoginCommand, Result<LoginCommandResponse>>
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly IJwtProvider _jwtProvider;
-
-        public LoginCommandHandler(UserManager<AppUser> userManager, IJwtProvider jwtProvider)
+        public async Task<Result<LoginCommandResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            _userManager = userManager;
-            _jwtProvider = jwtProvider;
-        }
+            AppUser? user = await userManager.Users
+                .FirstOrDefaultAsync(p =>
+                p.UserName == request.EmailOrUserName ||
+                p.Email == request.EmailOrUserName,
+                cancellationToken);
 
-        public async Task<LoginCommandResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
-        {
-            AppUser appUser = await _userManager.Users.Where(p => p.UserName == request.UserNameOrEmail || p.Email == request.UserNameOrEmail).FirstOrDefaultAsync(cancellationToken);
-
-            if (appUser is null)
+            if (user is null)
             {
-                throw new ArgumentException("Kullanıcı bulunamadı!");
+                return (500, "Kullanıcı bulunamadı");
             }
 
-            bool checkPassword = await _userManager.CheckPasswordAsync(appUser, request.Password);
-            if (!checkPassword)
+            SignInResult signInResult = await signInManager.CheckPasswordSignInAsync(user, request.Password, true);
+
+            if (signInResult.IsLockedOut)
             {
-                throw new ArgumentException("Şifre yanlış!");
+                TimeSpan? timeSpan = user.LockoutEnd - DateTime.UtcNow;
+                if (timeSpan is not null)
+                    return (500, $"Şifrenizi 3 defa yanlış girdiğiniz için kullanıcı {Math.Ceiling(timeSpan.Value.TotalMinutes)} dakika süreyle bloke edilmiştir");
+                else
+                    return (500, "Kullanıcınız 3 kez yanlış şifre girdiği için 5 dakika süreyle bloke edilmiştir");
             }
 
-            string token = await _jwtProvider.CreateTokenAsync(appUser);
+            if (signInResult.IsNotAllowed)
+            {
+                return (500, "Mail adresiniz onaylı değil");
+            }
 
-            return new(AccessToken: token, UserId: appUser.Id);
+            if (!signInResult.Succeeded)
+            {
+                return (500, "Şifreniz yanlış");
+            }
+
+            var loginResponse = await jwtProvider.CreateToken(user);
+
+
+            return loginResponse;
         }
     }
 }

@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BulutSistem.WebApi.Abstractions
 {
+    [AllowAnonymous]
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Bearer")]
     public class ApiController : ControllerBase
     {
         public readonly IMediator _mediator;

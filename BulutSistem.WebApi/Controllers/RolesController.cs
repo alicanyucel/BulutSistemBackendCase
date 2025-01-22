@@ -14,11 +14,12 @@ namespace BulutSistem.WebApi.Controllers
         {
         }
 
+        // sadece admin viever editor rollerini oluşuuryor rol tablosuna ekliyor birşey yazmıyoruz
         [HttpPost]
         public async Task<IActionResult> Sync(RoleSyncCommand request, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(request, cancellationToken);
-            return StatusCode(response.StatusCode, response);
+            return StatusCode(response.StatusCode, response.Data);
         }
     }
 }

@@ -1,28 +1,18 @@
-﻿using BulutSistem.Domain.Models;
+﻿
 using Microsoft.Extensions.DependencyInjection;
-using FluentValidation;
-using BulutSistem.Appllication.Behaviors;
 
 namespace BulutSistem.Appllication
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services)
+        public static IServiceCollection AddApplication(this IServiceCollection service)
         {
-         
-            services.AddAutoMapper(typeof(DependencyInjection).Assembly);
-
-            services.AddMediatR(conf =>
+            service.AddAutoMapper(typeof(DependencyInjection).Assembly);
+            service.AddMediatR(configuration =>
             {
-                conf.RegisterServicesFromAssemblies(
-                    typeof(DependencyInjection).Assembly,
-                    typeof(AppUser).Assembly);
-                conf.AddOpenBehavior(typeof(ValidationBehavior<,>));
+                configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
             });
-
-            services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
-
-            return services;
+            return service;
         }
     }
 }

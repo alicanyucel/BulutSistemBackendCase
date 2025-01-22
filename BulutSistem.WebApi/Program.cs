@@ -1,5 +1,6 @@
 using BulutSistem.Appllication;
 using BulutSistem.Infrastructure;
+using BulutSistem.WebApi.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -68,6 +69,7 @@ public class Program
         app.UseCors();
 
         app.MapControllers();
+        ExtensionsMiddleware.CreateFirstUser(app);
 
         app.Run();
     }

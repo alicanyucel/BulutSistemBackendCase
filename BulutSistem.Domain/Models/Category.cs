@@ -21,9 +21,9 @@ namespace BulutSistem.Domain.Models
 
 
         public virtual ICollection<Category> SubCategories { get; set; } = new List<Category>();
-
-
         public bool IsSubCategory => ParentCategoryId.HasValue;
+
+
     }
 
 }

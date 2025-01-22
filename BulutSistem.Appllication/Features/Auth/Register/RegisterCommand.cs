@@ -3,7 +3,7 @@
 
 namespace BulutSistem.Appllication.Features.Auth.Register;
 
-public sealed record RegisterCommand(
+public  record RegisterCommand(
  string Name,
  string Lastname,
  string Email,

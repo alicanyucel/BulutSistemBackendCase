@@ -1,25 +1,32 @@
 using BulutSistem.Appllication;
 using BulutSistem.Infrastructure;
-using BulutSistem.WebApi.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 public class Program
 {
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        builder.Services.AddCors(opt =>
+        builder.Services.AddAuthentication().AddJwtBearer(options =>
         {
-            opt.AddDefaultPolicy(builder =>
+            options.TokenValidationParameters = new()
             {
-                builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-            });
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration.GetSection("Jwt:Issuer").Value,
+                ValidAudience = builder.Configuration.GetSection("Jwt:Audience").Value,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:SecretKey").Value ?? ""))
+            };
         });
+        builder.Services.AddAuthorizationBuilder();
+
         builder.Services.AddApplication();
         builder.Services.AddInfrastructure(builder.Configuration);
-        builder.Services.AddExceptionHandler<ExceptionHandler>();
-        builder.Services.AddProblemDetails();
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(setup =>
@@ -60,11 +67,7 @@ public class Program
 
         app.UseCors();
 
-        app.UseExceptionHandler();
-
         app.MapControllers();
-
-        ExtensionsMiddleware.CreateFirstUser(app);
 
         app.Run();
     }

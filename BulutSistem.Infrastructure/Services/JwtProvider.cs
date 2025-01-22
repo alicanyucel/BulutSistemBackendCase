@@ -11,46 +11,32 @@ using System.Text;
 
 namespace BulutSistem.Infrastructure.Services
 {
-    internal class JwtProvider(
-         UserManager<AppUser> userManager,
-         IOptions<JwtOptions> jwtOptions) : IJwtProvider
+    internal sealed class JwtProvider : IJwtProvider
     {
-        public async Task<LoginCommandResponse> CreateToken(AppUser user)
+        public string CreateToken(AppUser user)
         {
             List<Claim> claims = new()
             {
-                new Claim("Id", user.Id.ToString()),
-                new Claim("Name", user.FullName),
-                new Claim("Email", user.Email ?? ""),
-                new Claim("UserName", user.UserName ?? "")
+                 new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+                 new Claim(ClaimTypes.Name,user.FullName),
+                 new Claim(ClaimTypes.Email,user.Email?? string.Empty),
+                 new Claim("UserName",user.UserName??string.Empty),
             };
+            DateTime expires = DateTime.Now.AddDays(1);
+            SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(string.Join("-", Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid())));
+            SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha512);
 
-            DateTime expires = DateTime.UtcNow.AddMonths(1);
-
-
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Value.SecretKey));
-
-            JwtSecurityToken jwtSecurityToken = new(
-                issuer: jwtOptions.Value.Issuer,
-                audience: jwtOptions.Value.Audience,
-                claims: claims,
-                notBefore: DateTime.UtcNow,
-                expires: expires,
-                signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512));
-
+            JwtSecurityToken SecurityToken = new(
+               issuer: "Ali Can Yücel", // kimin tarfınan olusturulduı
+               audience: "eAppointment", // kim kullancak
+               claims: claims,    // body olaraktan birden fazla değr ekleyebiliyoruz user adı mail adresi 
+               notBefore: DateTime.Now,// tokeninne zamandan sonra kullanılacak 
+               expires: expires, //geçerlilik süresi
+               signingCredentials: signingCredentials // şireleme turu anhtar
+                );
             JwtSecurityTokenHandler handler = new();
-
-            string token = handler.WriteToken(jwtSecurityToken);
-
-            string refreshToken = Guid.NewGuid().ToString();
-            DateTime refreshTokenExpires = expires.AddHours(1);
-
-            user.RefreshToken = refreshToken;
-            user.RefreshTokenExpires = refreshTokenExpires;
-
-            await userManager.UpdateAsync(user);
-
-            return new(token, refreshToken, refreshTokenExpires);
+            string token = handler.WriteToken(SecurityToken);
+            return token;
         }
     }
 }

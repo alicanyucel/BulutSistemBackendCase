@@ -4,5 +4,5 @@ using TS.Result;
 namespace BulutSistem.Appllication.Features.Auth.Login;
 
 public sealed record LoginCommand(
-    string EmailOrUserName,
+    string UserorEmail,
     string Password) : IRequest<Result<LoginCommandResponse>>;

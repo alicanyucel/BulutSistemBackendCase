@@ -9,6 +9,7 @@ namespace BulutSistem.Domain.Models
     {
         [Required]
         [StringLength(255)]
+        [UniqueVariantName(ErrorMessage = "Varyant adı benzersiz olmalıdır.")]
         public string VariantName { get; set; } = default!;
         [Required] 
         [Column(TypeName = "decimal(10,2)")]

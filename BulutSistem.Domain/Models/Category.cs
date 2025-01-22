@@ -12,7 +12,7 @@ namespace BulutSistem.Domain.Models
 
         public string? Description { get; set; } = default!;
 
-
+        [ParentIdRequiredIfSubCategory(ErrorMessage = "Alt kategori için ParentId belirtilmelidir.")]
         public int? ParentCategoryId { get; set; }
 
 

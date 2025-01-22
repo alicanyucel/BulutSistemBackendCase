@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BulutSistem.Domain.Models;
 
-public sealed class ProductVariant:BaseEntity
+public  class ProductVariant:BaseEntity
 {
     // tamam burdan devam edilecek dll gormuyordu
     [ForeignKey("ProductId")]
@@ -13,6 +13,7 @@ public sealed class ProductVariant:BaseEntity
     [Required]
     [StringLength(255, ErrorMessage = "Variant adı en fazla 255 karakter olabilir.")]
     [MaxLength(255)]
+    [UniqueVariantName] // variant adı benzersiz olmalı ürün bazında
     public string VariantName { get; set; } = default!;
     [Range(0.01, 99999999.99, ErrorMessage = "Fiyat sıfırdan küçük olamaz")]
     [Column(TypeName = "decimal(10, 2)")]

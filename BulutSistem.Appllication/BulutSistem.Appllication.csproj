@@ -38,10 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Auth\Registter\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BulutSistem.Domain\BulutSistem.Domain.csproj" />
   </ItemGroup>
 

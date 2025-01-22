@@ -1,11 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BulutSistem.Appllication.Features.Auth.Login;
+using BulutSistem.WebApi.Abstractions;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulutSistem.WebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AuthsController : ControllerBase
+    [AllowAnonymous]
+   
+    public class AuthsController : BaseApiController
     {
+        protected AuthsController(IMediator mediator) : base(mediator)
+        {
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginCommand request, CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(request, cancellationToken);
+            return Ok(response);
+        }
     }
 }

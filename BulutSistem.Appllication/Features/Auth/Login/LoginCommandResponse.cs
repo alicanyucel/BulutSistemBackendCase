@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace BulutSistem.Appllication.Features.Auth.Login
-{
-    internal class LoginCommandResponse
-    {
-    }
-}
+namespace BulutSistem.Appllication.Features.Auth.Login;
+
+public sealed record LoginCommandResponse(
+string AccessToken,
+Guid UserId);

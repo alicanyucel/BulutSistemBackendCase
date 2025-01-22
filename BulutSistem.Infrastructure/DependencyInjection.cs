@@ -1,7 +1,8 @@
 ﻿using BulutSistem.Domain.Models;
 using BulutSistem.Infrastructure.DataContext;
-using Castle.Core.Configuration;
 using GenericRepository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
 
@@ -10,7 +11,11 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-       
+        services.AddDbContext<ApplicationDbContext>(options =>
+
+        {
+            options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
+        });
         services.AddIdentity<AppUser, AppRole>(action =>
         {
             action.Password.RequiredLength = 1;

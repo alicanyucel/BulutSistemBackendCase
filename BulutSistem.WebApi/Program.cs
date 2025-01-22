@@ -4,6 +4,7 @@ using BulutSistem.WebApi.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Text;
 
 public class Program
@@ -25,7 +26,17 @@ public class Program
             };
         });
         builder.Services.AddAuthorizationBuilder();
+        Log.Logger = new LoggerConfiguration()
+    .WriteTo.MSSqlServer(
+        connectionString: builder.Configuration.GetConnectionString("SqlServer"), // MSSQL baðlantý dizesi
+        tableName: "Logs", // Loglarýn kaydedileceði tablo adý
+        autoCreateSqlTable: true
+    )
+    .Enrich.FromLogContext() 
+    .CreateLogger();
 
+       
+        builder.Host.UseSerilog();
         builder.Services.AddApplication();
         builder.Services.AddInfrastructure(builder.Configuration);
         builder.Services.AddControllers();
@@ -57,7 +68,7 @@ public class Program
         });
 
         var app = builder.Build();
-
+       
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();

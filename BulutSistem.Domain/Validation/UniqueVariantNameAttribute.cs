@@ -1,4 +1,4 @@
-﻿using BulutSistem.Infrastructure.Repositories;
+﻿using BulutSistem.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 public class UniqueVariantNameAttribute : ValidationAttribute

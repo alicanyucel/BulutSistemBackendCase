@@ -1,9 +1,7 @@
-﻿
-
-using BulutSistem.Domain.Models;
+﻿using BulutSistem.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BulutSistem.Infrastructure.Repositories
+namespace BulutSistem.Domain.Repositories
 {
     public class ProductVariantRepository
     {

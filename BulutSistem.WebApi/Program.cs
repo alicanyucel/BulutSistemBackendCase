@@ -1,5 +1,4 @@
 using BulutSistem.Appllication;
-using BulutSistem.Appllication.Services;
 using BulutSistem.Infrastructure;
 using BulutSistem.Infrastructure.Services;
 using BulutSistem.WebApi.Middleware;
@@ -28,8 +27,7 @@ public class Program
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:SecretKey").Value ?? ""))
             };
         });
-        // Redis baðlantýsý ekleniyor
-       // builder.Services.AddSingleton<IRedisService, RedisService>();
+       
         builder.Services.AddSingleton<RedisCacheService>();
         builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost:6379,abortConnect=false"));
 
@@ -38,8 +36,8 @@ public class Program
         builder.Services.AddAuthorizationBuilder();
         Log.Logger = new LoggerConfiguration()
        .WriteTo.MSSqlServer(
-        connectionString: builder.Configuration.GetConnectionString("SqlServer"), // MSSQL baðlantý dizesi
-        tableName: "Logs", // Loglarýn kaydedileceði tablo adý
+        connectionString: builder.Configuration.GetConnectionString("SqlServer"),
+        tableName: "Logs", 
         autoCreateSqlTable: true
        )
       .Enrich.FromLogContext()

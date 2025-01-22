@@ -44,10 +44,4 @@
     <ProjectReference Include="..\BulutSistem.Domain\BulutSistem.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Variants\DeleteVaritants\" />
-    <Folder Include="Features\Variants\GetAllVariants\" />
-    <Folder Include="Features\Variants\UpdateVaritants\" />
-  </ItemGroup>
-
 </Project>

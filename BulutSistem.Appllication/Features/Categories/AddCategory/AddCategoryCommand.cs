@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace BulutSistem.Appllication.Features.Categories.AddCategory
-{
-    internal class AddCategoryCommand
-    {
-    }
-}
+namespace BulutSistem.Appllication.Features.Categories.AddCategory;
+
+public sealed record AddCategoryCommad(string Name,string? Description,decimal Price,int StockQuantity,int CategoryId,bool IsDeleted,int ProductVariantsId);

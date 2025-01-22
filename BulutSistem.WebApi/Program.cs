@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using StackExchange.Redis;
 using System.Text;
 
 public class Program
@@ -25,6 +26,10 @@ public class Program
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:SecretKey").Value ?? ""))
             };
         });
+        //redis
+        var redisConnection = builder.Configuration.GetValue<string>("RedisConnection");
+         //redis
+        builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnection));
         builder.Services.AddAuthorizationBuilder();
         Log.Logger = new LoggerConfiguration()
     .WriteTo.MSSqlServer(

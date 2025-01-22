@@ -7,8 +7,7 @@ namespace BulutSistem.Appllication.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<CreateMeetCommand, Meet>().ReverseMap();
-            CreateMap<UpdateMeetCommand, Meet>().ReverseMap();
+          
         }
     }
 }

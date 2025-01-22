@@ -1,5 +1,5 @@
-﻿using BulutSistem.Appllication.Features;
-using BulutSistem.Domain.Abstraction;
+﻿using BulutSistem.Domain.Abstraction;
+using BulutSistem.Domain.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace BulutSistem.Domain.Models

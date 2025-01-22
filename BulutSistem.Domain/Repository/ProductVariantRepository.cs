@@ -1,6 +1,7 @@
-﻿using BulutSistem.Domain.Models;
-using Microsoft.EntityFrameworkCore;
+﻿
 
+using BulutSistem.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BulutSistem.Infrastructure.Repositories
 {
@@ -18,5 +19,4 @@ namespace BulutSistem.Infrastructure.Repositories
             return await _context.Set<ProductVariant>().FirstOrDefaultAsync(v => v.VariantName == variantName);
         }
     }
-
 }

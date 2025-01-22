@@ -1,7 +1,6 @@
 ﻿using BulutSistem.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-
 public class UniqueVariantNameAttribute : ValidationAttribute
 {
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)

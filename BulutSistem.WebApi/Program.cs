@@ -28,19 +28,19 @@ public class Program
         });
         //redis
         var redisConnection = builder.Configuration.GetValue<string>("RedisConnection");
-         //redis
+        //redis
         builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnection));
         builder.Services.AddAuthorizationBuilder();
         Log.Logger = new LoggerConfiguration()
-    .WriteTo.MSSqlServer(
+       .WriteTo.MSSqlServer(
         connectionString: builder.Configuration.GetConnectionString("SqlServer"), // MSSQL baðlantý dizesi
         tableName: "Logs", // Loglarýn kaydedileceði tablo adý
         autoCreateSqlTable: true
-    )
-    .Enrich.FromLogContext() 
-    .CreateLogger();
+       )
+      .Enrich.FromLogContext()
+      .CreateLogger();
 
-       
+
         builder.Host.UseSerilog();
         builder.Services.AddApplication();
         builder.Services.AddInfrastructure(builder.Configuration);
@@ -73,7 +73,7 @@ public class Program
         });
 
         var app = builder.Build();
-       
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();

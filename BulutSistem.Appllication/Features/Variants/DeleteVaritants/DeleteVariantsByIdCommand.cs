@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using TS.Result;
 
 namespace BulutSistem.Appllication.Features.Variants.DeleteVaritants
 {
-    internal class DeleteVariantsByIdCommand
-    {
-    }
+    public sealed record DeleteVariantByIdCommand(int Id) : IRequest<Result<string>>;
+}
 }

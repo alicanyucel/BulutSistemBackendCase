@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BulutSistem.Domain.Models;
+using MediatR;
+
 
 namespace BulutSistem.Appllication.Features.Variants.GetAllVariants
 {
-    internal class GetAllVariantsQuery
-    {
-    }
+    public sealed record GetAllVariantQuery() : IRequest<List<Variant>>;
 }

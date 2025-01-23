@@ -7,10 +7,11 @@ namespace BulutSistem.Domain.Models
 {
     public  class Variant:BaseEntity
     {
+       
         [Required]
         [StringLength(255)]
         [UniqueVariantName(ErrorMessage = "Varyant adı benzersiz olmalıdır.")]
-        public string VariantName { get; set; } = default!;
+        public string Name { get; set; } = default!;
         [Required] 
         [Column(TypeName = "decimal(10,2)")]
         [Range(0.01, 99999999.99, ErrorMessage = "Fiyat sıfırdan küçük olamaz")]
@@ -20,5 +21,6 @@ namespace BulutSistem.Domain.Models
         public int StockQuantity { get; set; }=default!;
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; } = default!; // n to n ilişki
+        // ısDeleted baseEntityden geliyor oop gereği 
     }
 }

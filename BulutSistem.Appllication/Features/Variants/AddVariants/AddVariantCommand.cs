@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using MediatR;
+using TS.Result;
 
 namespace BulutSistem.Appllication.Features.Variants.AddVariants
 {
-    internal class AddVariantCommand
-    {
-    }
+   public sealed record AddVariantCommand(string Name,decimal Price,int ProductId,int StockQuantity):IRequest<Result<string>>;
+
 }

@@ -8,9 +8,9 @@ using TS.Result;
 
 namespace BulutSistem.Appllication.Features.Categories.UpdateCategory
 {
-    internal sealed class UpdateCategoryByIdCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<UpdatePrductByIdCommand, Result<string>>
+    internal sealed class UpdateCategoryByIdCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<UpdateCategoryByIdCommand, Result<string>>
     {
-        public async Task<Result<string>> Handle(UpdatePrductByIdCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(UpdateCategoryByIdCommand request, CancellationToken cancellationToken)
         {
             Category category = await categoryRepository.GetByExpressionWithTrackingAsync(P => P.Id == request.Id, cancellationToken);
             if (category == null)

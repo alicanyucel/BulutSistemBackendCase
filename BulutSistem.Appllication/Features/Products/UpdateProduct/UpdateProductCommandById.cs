@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BulutSistem.Appllication.Features.Categories.UpdateCategory;
 using BulutSistem.Domain.Models;
 using BulutSistem.Domain.Repositories;
 using MediatR;
@@ -7,9 +6,9 @@ using TS.Result;
 
 namespace BulutSistem.Appllication.Features.Products.UpdateProduct
 {
-    internal sealed class UpdateCategoryByIdCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<UpdatePrductByIdCommand, Result<string>>
+    internal sealed class UpdateProductyByIdCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<UpdateProductByIdCommand, Result<string>>
     {
-        public async Task<Result<string>> Handle(UpdatePrductByIdCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(UpdateProductByIdCommand request, CancellationToken cancellationToken)
         {
             Product product= await productRepository.GetByExpressionWithTrackingAsync(P => P.Id == request.Id, cancellationToken);
             if (product == null)

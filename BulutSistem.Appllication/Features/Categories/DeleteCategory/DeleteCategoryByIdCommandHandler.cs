@@ -5,7 +5,7 @@ using TS.Result;
 
 namespace BulutSistem.Appllication.Features.Categories.DeleteCategory
 {
-    internal sealed class DeleteBlogByIdCommandHandler(
+    internal sealed class DeleteCategoryByIdCommandHandler(
     ICategoryRepository categoryRepository,
     IUnitOfWork unitOfWork) : IRequestHandler<DeleteCategoryByIdCommand, Result<string>>
     {

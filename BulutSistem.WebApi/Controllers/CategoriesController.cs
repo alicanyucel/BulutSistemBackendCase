@@ -1,19 +1,25 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using BulutSistem.Appllication.Features.Categories.AddCategory;
+using BulutSistem.WebApi.Abstractions;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulutSistem.WebApi.Controllers
 {
     [AllowAnonymous]
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class CategoriesController : ControllerBase
+
+    public class CategoriesController : ApiController
     {
-        // Define the GET route for the Merhaba action
-        [HttpGet("merhaba")]
-        public string Merhaba()
+        protected CategoriesController(IMediator mediator) : base(mediator)
         {
-            return "Merhaba";
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddCategoryCommad request, CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(request, cancellationToken);
+            return StatusCode(response.StatusCode, response);
+
         }
     }
 }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using BulutSistem.Domain.Models;
+using MediatR;
 
 namespace BulutSistem.Appllication.Features.Categories.GetCategoriy
 {
-    internal class GetAllCategoryQuery
-    {
-    }
+    public sealed record GetAllCategoryQuery() : IRequest<List<Category>>;
 }

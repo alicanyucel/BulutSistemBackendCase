@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using TS.Result;
 
 namespace BulutSistem.Appllication.Features.Categories.DeleteCategory
 {
-    internal class DeleteCategoryByIdCommand
-    {
-    }
+    public sealed record DeleteCategoryByIdCommand(int Id) : IRequest<Result<string>>;
 }

@@ -24,10 +24,10 @@ namespace BulutSistem.WebApi.Controllers
             return StatusCode(response.StatusCode, response);
 
         }
-        [HttpDelete]
-        public async Task<IActionResult> Delete(DeleteCategoryByIdCommand request, CancellationToken cancellationToken)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(request, cancellationToken);
+            var response = await _mediator.Send(new DeleteCategoryByIdCommand(id), cancellationToken);
             return StatusCode(response.StatusCode, response);
 
         }
@@ -38,7 +38,7 @@ namespace BulutSistem.WebApi.Controllers
 
             return Ok(response);
         }
-        [HttpPost] 
+        [HttpPut] // endpoint bu şekilde durmalı
         public async Task<IActionResult> Update(UpdateCategoryByIdCommand request, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(request, cancellationToken);

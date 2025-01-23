@@ -13,7 +13,7 @@ namespace BulutSistem.WebApi.Controllers
     [AllowAnonymous]
     public class VariantsController : ApiController
     {
-        protected VariantsController(IMediator mediator) : base(mediator)
+        public VariantsController(IMediator mediator) : base(mediator)
         {
         }
         [HttpPost]

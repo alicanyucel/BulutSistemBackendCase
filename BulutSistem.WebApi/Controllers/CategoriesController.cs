@@ -8,9 +8,9 @@ namespace BulutSistem.WebApi.Controllers
 {
     [AllowAnonymous]
 
-    public class CategoriesController : ApiController
+    public sealed class CategoriesController : ApiController
     {
-        protected CategoriesController(IMediator mediator) : base(mediator)
+        public CategoriesController(IMediator mediator) : base(mediator)
         {
         }
 

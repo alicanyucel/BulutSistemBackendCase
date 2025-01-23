@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BulutSistem.Domain.Models;
+using MediatR;
+
 
 namespace BulutSistem.Appllication.Features.Products.GetProduct
 {
-    internal class GetAllProductQuery
-    {
-    }
+    public sealed record GetAllProductQuery() : IRequest<List<Product>>;
 }

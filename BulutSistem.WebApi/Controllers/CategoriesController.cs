@@ -24,7 +24,7 @@ namespace BulutSistem.WebApi.Controllers
         }
         [Authorize(Roles = "Admin,Editor")]
         [HttpPost]
-        public async Task<IActionResult> Add(AddCategoryCommad request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Add(AddProductCommad request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Category ekleme işlemine başlandı");
             try { 
@@ -76,7 +76,7 @@ namespace BulutSistem.WebApi.Controllers
         }
         [Authorize(Roles = "Admin,Editor")]
         [HttpPut] // endpoint bu şekilde durmalı
-        public async Task<IActionResult> Update(UpdateCategoryByIdCommand request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Update(UpdatePrductByIdCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Category update işlemine başlandı");
             try

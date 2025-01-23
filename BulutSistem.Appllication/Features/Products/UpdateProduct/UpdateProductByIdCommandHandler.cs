@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using TS.Result;
 
 namespace BulutSistem.Appllication.Features.Products.UpdateProduct
 {
-    internal class UpdateProductByIdCommandHandler
-    {
-    }
+    public sealed record UpdateProductCommand(int Id,string Name, string? Description, decimal Price, int StockQuantity, int CategoryId, bool IsDeleted, int ProductVariantsId) : IRequest<Result<string>>;
 }

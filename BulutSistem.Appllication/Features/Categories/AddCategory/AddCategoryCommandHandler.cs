@@ -6,9 +6,9 @@ using TS.Result;
 
 namespace BulutSistem.Appllication.Features.Categories.AddCategory
 {
-    internal sealed class AddCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<AddCategoryCommad, Result<string>>
+    internal sealed class AddCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<AddProductCommad, Result<string>>
     {
-        public async Task<Result<string>> Handle(AddCategoryCommad request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(AddProductCommad request, CancellationToken cancellationToken)
         {
             Category category = mapper.Map<Category>(request);
             await categoryRepository.AddAsync(category, cancellationToken);

@@ -10,8 +10,8 @@ namespace BulutSistem.Appllication.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<AddCategoryCommad, Category>().ReverseMap(); // best practice two way mapping
-            CreateMap<UpdateCategoryByIdCommand, Category>().ReverseMap();
+            CreateMap<AddProductCommad, Category>().ReverseMap(); // best practice two way mapping
+            CreateMap<UpdatePrductByIdCommand, Category>().ReverseMap();
         }
     }
 }

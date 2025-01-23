@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using BulutSistem.Appllication.Features.Categories.UpdateCategory;
+using BulutSistem.Domain.Models;
+using BulutSistem.Domain.Repositories;
+using MediatR;
+using TS.Result;
 
 namespace BulutSistem.Appllication.Features.Products.UpdateProduct
 {
-    internal class UpdateProductCommandById
+    internal sealed class UpdateCategoryByIdCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<UpdatePrductByIdCommand, Result<string>>
     {
+        public async Task<Result<string>> Handle(UpdatePrductByIdCommand request, CancellationToken cancellationToken)
+        {
+            Product product= await productRepository.GetByExpressionWithTrackingAsync(P => P.Id == request.Id, cancellationToken);
+            if (product == null)
+            {
+                return Result<string>.Failure("product yok");
+            }
+            mapper.Map(request, product);
+            productRepository.Update(product);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
+            return "product güncelledi";
+
+        }
     }
 }

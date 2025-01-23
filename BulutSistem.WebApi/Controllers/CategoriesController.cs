@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BulutSistem.WebApi.Controllers
 {
-    [AllowAnonymous]
+    [AllowAnonymous] // deneme amaclı izin verdim
 
     public sealed class CategoriesController : ApiController
     {
         public CategoriesController(IMediator mediator) : base(mediator)
         {
         }
-
+        [Authorize(Roles = "Admin,Editor")]
         [HttpPost]
         public async Task<IActionResult> Add(AddCategoryCommad request, CancellationToken cancellationToken)
         {
@@ -24,6 +24,7 @@ namespace BulutSistem.WebApi.Controllers
             return StatusCode(response.StatusCode, response);
 
         }
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
@@ -31,6 +32,7 @@ namespace BulutSistem.WebApi.Controllers
             return StatusCode(response.StatusCode, response);
 
         }
+        [Authorize(Roles = "Admin,Editor,Viewe")]
         [HttpPost] //bilerek posta çektim
         public async Task<IActionResult> GetAll(GetAllCategoryQuery request, CancellationToken cancellationToken)
         {
@@ -38,6 +40,7 @@ namespace BulutSistem.WebApi.Controllers
 
             return Ok(response);
         }
+        [Authorize(Roles = "Admin,Editor")]
         [HttpPut] // endpoint bu şekilde durmalı
         public async Task<IActionResult> Update(UpdateCategoryByIdCommand request, CancellationToken cancellationToken)
         {

@@ -27,7 +27,13 @@ public class Program
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:SecretKey").Value ?? ""))
             };
         });
-       
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+            options.AddPolicy("EditorOnly", policy => policy.RequireRole("Editor"));
+            options.AddPolicy("ViewerOnly", policy => policy.RequireRole("Viewer"));
+        });
+
         builder.Services.AddSingleton<RedisCacheService>();
         builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost:6379,abortConnect=false"));
 
@@ -42,8 +48,6 @@ public class Program
        )
       .Enrich.FromLogContext()
       .CreateLogger();
-
-
         builder.Host.UseSerilog();
         builder.Services.AddApplication();
         builder.Services.AddInfrastructure(builder.Configuration);
@@ -86,7 +90,8 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseCors();
-
+        app.UseAuthentication();  // JWT doðrulama
+        app.UseAuthorization();
         app.MapControllers();
         ExtensionsMiddleware.CreateFirstUser(app);
 

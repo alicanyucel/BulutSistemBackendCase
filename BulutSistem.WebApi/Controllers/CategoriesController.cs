@@ -22,7 +22,7 @@ namespace BulutSistem.WebApi.Controllers
             _logger=logger;
             _redisCacheService=redisCacheService;
         }
-        [Authorize(Roles = "Admin,Editor")]
+      //  [Authorize(Roles = "Admin,Editor")]
         [HttpPost]
         public async Task<IActionResult> Add(AddCategoryCommand request, CancellationToken cancellationToken)
         {

@@ -13,6 +13,7 @@ public static class ExtensionsMiddleware
 
             if (!userManager.Users.Any(p => p.UserName == "admin"))
             {
+                // db oluşturulurken dafault kulanıcı
                 AppUser user = new()
                 {
                     UserName = "admin",

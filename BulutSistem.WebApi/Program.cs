@@ -34,8 +34,8 @@ public class Program
             options.AddPolicy("ViewerOnly", policy => policy.RequireRole("Viewer"));
         });
 
-        builder.Services.AddSingleton<RedisCacheService>();
-        builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost:6379,abortConnect=false"));
+        builder.Services.AddSingleton<RedisCacheService>(); // di
+        builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost:6379,abortConnect=false")); //r edis start
 
 
 
@@ -55,6 +55,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(setup =>
         {
+            // jwt
             var jwtSecuritySheme = new OpenApiSecurityScheme
             {
                 BearerFormat = "JWT",

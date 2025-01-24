@@ -1,6 +1,5 @@
 ﻿using BulutSistem.Domain.Abstraction;
 using BulutSistem.Domain.Validation;
-using Microsoft.AspNetCore.Components.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace BulutSistem.Domain.Models

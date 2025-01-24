@@ -11,7 +11,9 @@ namespace BulutSistem.WebApi.Controllers
     [AllowAnonymous]
     public sealed class AuthsController : ApiController
     {
+        // serilog
         private readonly ILogger<AuthsController> _logger;
+        // redis
         private readonly RedisCacheService _redisCacheService;
 
         public AuthsController(IMediator mediator, ILogger<AuthsController> logger, RedisCacheService redisCacheService) : base(mediator)

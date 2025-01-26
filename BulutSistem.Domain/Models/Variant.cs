@@ -19,8 +19,7 @@ namespace BulutSistem.Domain.Models
         [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Stok miktarı geçersiz.")]
         public int StockQuantity { get; set; }=default!;
-        [ForeignKey("ProductId")]
-        public virtual Product Product { get; set; } = default!; // n to n ilişki
+       
         // ısDeleted baseEntityden geliyor oop gereği 
     }
 }

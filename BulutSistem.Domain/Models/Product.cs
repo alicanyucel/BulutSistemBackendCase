@@ -17,8 +17,8 @@ namespace BulutSistem.Domain.Models
         [Range(0, int.MaxValue, ErrorMessage = "Stok miktarı geçersiz.")]
         public int StockQuantity { get; set; } = default!;
 
-        [ForeignKey("CategoryId")]
-        public Category Category { get; set; } = default!;
+        //[ForeignKey("CategoryId")]
+        //public Category Category { get; set; } = default!;
 
         public virtual ICollection<ProductVariant> ProductVariants { get; set; } = default!;
     }

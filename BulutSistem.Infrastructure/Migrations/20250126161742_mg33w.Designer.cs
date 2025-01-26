@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulutSistem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250123114702_mg8761")]
-    partial class mg8761
+    [Migration("20250126161742_mg33w")]
+    partial class mg33w
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -161,7 +161,7 @@ namespace BulutSistem.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Stock_Quantity")
+                    b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Updated_At")

@@ -6,5 +6,6 @@ namespace BulutSistem.Domain.Repositories
 {
     public interface ICategoryRepository : IRepository<Category>
     {
+        
     }
 }

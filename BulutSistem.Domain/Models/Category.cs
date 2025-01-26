@@ -10,19 +10,16 @@ namespace BulutSistem.Domain.Models
         [MaxLength(255)]
         public string Name { get; set; } = default!;
 
-        public string? Description { get; set; } = default!;
+        public string? Description { get; set; }
 
-        [ParentIdRequiredIfSubCategory(ErrorMessage = "Alt kategori için ParentId belirtilmelidir.")]
-        public int? ParentCategoryId { get; set; }
-
-
+        public bool IsDeleted { get; set; }
         [ForeignKey("ParentCategoryId")]
+        public int? ParentCategoryId { get; set; }
         public Category? ParentCategory { get; set; }
 
-       
         public virtual ICollection<Category> SubCategories { get; set; } = new List<Category>();
-        public bool IsSubCategory => ParentCategoryId.HasValue;
 
+        public bool IsSubCategory => ParentCategoryId.HasValue;
 
     }
 

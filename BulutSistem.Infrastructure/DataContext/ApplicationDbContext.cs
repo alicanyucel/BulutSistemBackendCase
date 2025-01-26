@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using GenericRepository;
+using BulutSistem.Domain.Repositories;
 
 
 namespace BulutSistem.Infrastructure.DataContext;

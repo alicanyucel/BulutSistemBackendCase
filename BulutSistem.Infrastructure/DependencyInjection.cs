@@ -1,6 +1,6 @@
 ﻿using BulutSistem.Domain.Models;
+using BulutSistem.Domain.Repositories;
 using BulutSistem.Infrastructure.DataContext;
-using GenericRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +16,7 @@ public static class DependencyInjection
         {
             options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
         });
+        services.AddScoped<IUnitOfWork>(srv => srv.GetRequiredService<ApplicationDbContext>());
         services.AddIdentity<AppUser, AppRole>(action =>
         {
             action.Password.RequiredLength = 1;

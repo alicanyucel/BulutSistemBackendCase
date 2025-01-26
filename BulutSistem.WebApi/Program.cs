@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using StackExchange.Redis;
+using System.Net;
 using System.Text;
 
 public class Program
@@ -14,6 +15,9 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddApplication();
+        builder.Services.AddInfrastructure(builder.Configuration);
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         builder.Services.AddAuthentication().AddJwtBearer(options =>
         {
             options.TokenValidationParameters = new()
@@ -49,8 +53,7 @@ public class Program
       .Enrich.FromLogContext()
       .CreateLogger();
         builder.Host.UseSerilog();
-        builder.Services.AddApplication();
-        builder.Services.AddInfrastructure(builder.Configuration);
+
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(setup =>

@@ -133,6 +133,12 @@ namespace BulutSistem.Infrastructure.Migrations
             modelBuilder.Entity("BulutSistem.Domain.Models.Product", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Created_At")
@@ -152,13 +158,15 @@ namespace BulutSistem.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Stock_Quantity")
+                    b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Updated_At")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -304,7 +312,7 @@ namespace BulutSistem.Infrastructure.Migrations
                 {
                     b.HasOne("BulutSistem.Domain.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
